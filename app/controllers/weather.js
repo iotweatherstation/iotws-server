@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+module.exports = function (app) {
+	app.use('/weather', router);
+};
+
 /* GET save sensors. */
 router.get('/saveSensors', function(req, res, next) {
 	console.log('idhome =',req.query.idhome, ' temp =',req.query.temp,' humid =',req.query.humid, ' timestamp =',req.query.timestamp);
@@ -34,5 +38,3 @@ router.get('/getTime', function(req, res, next) {
 
 	res.send(fecha);
 });
-
-module.exports = router;

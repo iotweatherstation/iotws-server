@@ -8,7 +8,7 @@ var config = {
     app: {
       name: 'iotws-server'
     },
-    port: process.env.PORT || 3123,
+    port: process.env.PORT || 3001,
     db: 'mongodb://localhost/iotws-server-development'
   },
 
@@ -17,7 +17,7 @@ var config = {
     app: {
       name: 'iotws-server'
     },
-    port: process.env.PORT || 3123,
+    port: process.env.PORT || 3002,
     db: 'mongodb://localhost/iotws-server-test'
   },
 
