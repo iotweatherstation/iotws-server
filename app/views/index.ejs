@@ -1,6 +1,19 @@
 <% include header %>
 
   <h1><%-title %></h1>
-  <p>Welcome to <%-title %></p>
+  <p>Proyectos:</p>
+  <ul>
+    <li>IoT Weather Station</li>
+    <p>- Autores: Edwin Montoya M - emontoya@eafit.edu.co / David Velasquez - dvelas25@eafit.edu.co</p>
+    <p>- Web Services:</p>
+    <p><a target="_blank" href="https://github.com/iotweatherstation/iotws-server/blob/master/README.md">Documentación</a></p>
+    <ol>
+    <li>http://iotserver1.dis.eafit.edu.co/weather/getTime
+    <li>http://iotserver1.dis.eafit.edu.co/weather/saveSensor?idhome="username" & temp="val" & humid="val" & timestamp="date"
+    <li>http://iotserver1.dis.eafit.edu.co/weather/"username"
+    <li>http://iotserver1.dis.eafit.edu.co/weather/username/"size"
+    </ol>
+    <p>-<a target="_blank" href="https://github.com/iotweatherstation"> Github del proyecto </a></p>
+  </ul>
 
 <% include footer %>
