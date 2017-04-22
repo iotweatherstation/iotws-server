@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+  <meta charset="utf-8">
+  <title>IoT Weather Station - Send my Geolocation</title>
+  <script type="text/javascript">
+    function showPosition(){
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function(position){
+          var latitude = position.coords.latitude;
+          var longitude = position.coords.longitude;
+          var positionInfo = "Su posicion es (" + "Latitude: " + latitude + ", " + "Longitude: " + longitude + ")";
+          document.getElementById("result").innerHTML = positionInfo;
+          var username = document.getElementById("username").value;
+          if(username != ""){
+            $.get('/weather/sendMyLocation?username='+username+'&latitude='+latitude+'&longitude='+longitude)
+          } else{
+		          alert("Debe digital el username de EAFIT como idhome");
+		  }
+        });
+      } else{
+        alert("Sorry, your browser does not support HTML5 geolocation.");
+      }
+    }
+  </script>
+</head>
+<body>
+  <center>
+  <h1>UNIVERSIDAD EAFIT</h1>
+    <H2>INGENIERIA DE SISTEMAS</h2>
+    <H2>ST0260 SEMINARIO DE INGENIERÍA DE SISTEMAS, 20171</h2>
+    <H2>PROYECTO FINAL: IoT Weather Station</h2>
+      <h1>GEOLOCALIZACIÓN DE PUNTOS EN LA CIUDAD<H1>
+      </center>
+<div >
+  <label>Ingrese su usuario EAFIT como idhome:</label>
+  <input id="username" type="text" name="username" placeholder="Usuario"></input>
+  <p>
+</div>
+
+<button type="button" onclick="showPosition();">Enviar Posicion</button>
+<p>
+<label id="result"></label>
+</body>
+</html>

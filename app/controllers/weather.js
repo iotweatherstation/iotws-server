@@ -2,10 +2,52 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var WeatherSchema = mongoose.model('Weather');
+var LocationSchema = mongoose.model('Location');
 
 module.exports = function (app) {
 	app.use('/weather', router);
 };
+
+/* GET: save location. */
+
+router.get('/sendMyLocation', function(req, res, next) {
+
+	var newLocation = new LocationSchema({
+		idhome: req.query.username,
+		latitude: req.query.latitude,
+		longitude: req.query.longitude
+	});
+
+	LocationSchema.findOne({idhome:req.query.username}, function (err, location) {
+		if(!err) {
+			if (location) {
+				console.log("actualizando registro");
+				location.latitude = req.query.latitude;
+				location.longitude = req.query.longitude;
+				location.save(function(err, newloc) {
+					if (!err)
+						return res.status(200).jsonp(newLocation);
+					else
+					  return res.send(500, err.message);
+				});
+			} else {
+				console.log("creando registro");
+				newLocation.save(function(err, newLocation) {
+					if (err) {
+						return res.send(500, err.message);
+					} else  {
+						console.log('creacion exitosa');
+						return res.status(200).jsonp(newLocation);
+					}
+				});
+			}
+		}
+		else {
+			return res.send(500, err.message);
+			}
+	});
+	console.log('idhome =',req.query.username, ' latitude =',req.query.latitude, 'longitude =',req.query.longitude);
+});
 
 /* GET: save sensors. */
 router.get('/saveSensors', function(req, res, next) {
@@ -67,7 +109,7 @@ router.get('/:id/:size',function(req,res){
 		} else {
 			return res.send(500, err.message);
 		}
-	}).limit(parseInt(req.params.size));
+	}).sort({timestamp:-1}).limit(parseInt(req.params.size));
 });
 
 router.get('/:id',function(req,res){
@@ -80,5 +122,5 @@ router.get('/:id',function(req,res){
     } else {
       return res.send(500, err.message);
     }
-  }).limit(10);
+  }).sort({timestamp:-1}).limit(10);
 });
