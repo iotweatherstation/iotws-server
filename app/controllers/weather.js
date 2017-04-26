@@ -8,6 +8,25 @@ module.exports = function (app) {
 	app.use('/weather', router);
 };
 
+/* GET: save my prediction per username */
+router.get('/sendMyPrediction', function(req, res, next) {
+	var newPrediction = new PredictionSchema({
+		idhome: req.query.username,
+		predtemp: req.query.predtemp,
+		predhumid: req.query.predhumid,
+		timestamp: req.query.timestamp,
+
+	});
+	newPrediction.save(function(err, newPrediction) {
+		if (err) {
+			return res.send(500, err.message);
+		}
+		// send OK
+		return res.status(200).jsonp(newWeather);
+	});
+});
+
+
 /* GET: save location. */
 
 router.get('/sendMyLocation', function(req, res, next) {
