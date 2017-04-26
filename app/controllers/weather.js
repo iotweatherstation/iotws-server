@@ -114,7 +114,10 @@ router.get('/:id/:size',function(req,res){
 
 router.get('/:id',function(req,res){
 
-  WeatherSchema.find({idhome:req.params.id},{_id:0,idhome:1,temp:1,humid:1,timestamp:1},function (err, weather) {
+  WeatherSchema.find({idhome:req.params.id,
+											timestamp: {$gte: new Date(new Date().setDate(new Date().getDate()-1)), $lt: new Date()}},
+											{_id:0,idhome:1,temp:1,humid:1,timestamp:1},
+											function (err, weather) {
     if (!err) {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -122,5 +125,5 @@ router.get('/:id',function(req,res){
     } else {
       return res.send(500, err.message);
     }
-  }).sort({timestamp:-1}).limit(10);
+  }).sort({timestamp:-1});
 });
