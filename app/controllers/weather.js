@@ -122,6 +122,10 @@ router.get('/:id',function(req,res){
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 			res.send(weather);
+			while (weather.hasNext()) {
+				console.log(weather.next().temp);
+			}
+
     } else {
       return res.send(500, err.message);
     }
