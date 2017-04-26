@@ -124,7 +124,7 @@ router.get('/:id',function(req,res){
 			res.send(weather);
 			if (weather) {
 				for (var x=0;x<weather.length;x++) {
-						console.log(weather[x].temp);
+						console.log(weather[x].idhome,",",weather[x].temp,",",weather[x].humid, ",", weather[x].timestamp);
 				}
 			}
     } else {
