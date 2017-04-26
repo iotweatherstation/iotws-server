@@ -125,7 +125,7 @@ router.get('/:id',function(req,res){
 			if (weather) {
 				var rawout="";
 				for (var x=0;x<weather.length;x++) {
-					rawout += weather[x].idhome + "," + weather[x].temp + "," + weather[x].humid + "," + weather[x].timestamp+"\r\n";
+					rawout += weather[x].idhome + "," + weather[x].temp + "," + weather[x].humid + "," + ISODate(weather[x].timestamp)+"\r\n";
 				}
 				console.log(rawout);
 				res.send(rawout);
