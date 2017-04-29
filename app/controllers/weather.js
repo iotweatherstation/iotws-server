@@ -169,7 +169,7 @@ var now = new Date().getTime();
 var lasthour = new Date(new Date().getTime() - 1000 * 60 * 60);
 
 console.log("now",now);
-console.log("lasthour2",lasthour2);
+console.log("lasthour",lasthour);
 
   LastWeatherSchema.find({timestamp: {$gte:lasthour}},{
     _id: 0,
