@@ -162,6 +162,36 @@ router.get('/:id/:size', function(req, res) {
   }).limit(parseInt(req.params.size));
 });
 
+router.get('/getAllLastWeatherTest', function(req, res,next) {
+
+  LastWeatherSchema.find({
+    _id: 0,
+    idhome: 1,
+    temp: 1,
+    humid: 1,
+    timestamp: 1
+  }, function(err, weather) {
+
+    if (!err) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      if (weather) {
+        var rawout = "";
+        for (var x = 0; x < weather.length; x++) {
+          rawout += weather[x].idhome + "," + weather[x].temp + "," + weather[x].humid + "," + weather[x].timestamp.toISOString() + "\r\n";
+        }
+        console.log(rawout);
+        res.send(rawout);
+      } else {
+				console.log('no trajo registros');
+			}
+    } else {
+      return res.send(500, err.message);
+    }
+
+  });
+});
+
 router.get('/getAllLastWeather', function(req, res,next) {
 
   var lasthour = new Date().setHours(new Date().getHours() - 1);
