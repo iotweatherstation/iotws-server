@@ -163,9 +163,12 @@ router.get('/:id/:size', function(req, res) {
 });
 
 router.get('/getAllLastWeather', function(req, res) {
+
+  var lasthour = new Date().setHours(new Date().getHours() - 1);
+
   LastWeatherSchema.find({
     timestamp: {
-      $gte: new Date(new Date().setHours(new Date().getHours() - 1)),
+      $gte: lasthour,
       $lt: new Date()
     }
   }, {
