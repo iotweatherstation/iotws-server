@@ -164,7 +164,7 @@ router.get('/:id/:size', function(req, res) {
 
 router.get('/getAllLastWeatherTest', function(req, res,next) {
 
-  LastWeatherSchema.find({
+  LastWeatherSchema.find({},{
     _id: 0,
     idhome: 1,
     temp: 1,
