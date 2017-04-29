@@ -164,10 +164,12 @@ router.get('/:id/:size', function(req, res) {
 
 router.get('/getAllLastWeatherTest', function(req, res,next) {
 
-var lasthour2 = new Date().setDate(new Date().getDate() - 1);
-var lasthour = new Date(ISODate().getTime() - 1000 * 60 * 60);
+var lasthour2 = new Date().setHours(new Date().getHours() - 1);
+var now = new Date().getHours();
+var lasthour = new Date(new Date().getTime() - 1000 * 60 * 60);
 
-console.log("ult hora",lasthour);
+console.log("now",now);
+console.log("lasthour2",lasthour2);
 
   LastWeatherSchema.find({timestamp: {$gte:lasthour}},{
     _id: 0,
