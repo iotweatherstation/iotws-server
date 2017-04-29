@@ -168,7 +168,7 @@ var lasthour = new Date().setHours(new Date().getHours() - 1);
 
 console.log("ult hora",lasthour);
 
-  LastWeatherSchema.find({timestamp: {$gt:lasthour}},{
+  LastWeatherSchema.find({created: {$gt:lasthour}},{
     _id: 0,
     idhome: 1,
     temp: 1,
