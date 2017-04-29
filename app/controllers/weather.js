@@ -165,11 +165,11 @@ router.get('/:id/:size', function(req, res) {
 router.get('/getAllLastWeatherTest', function(req, res,next) {
 
 var lasthour2 = new Date().setDate(new Date().getDate() - 1);
-var lasthour = new Date(new Date().getTime() - 1000 * 60 * 60);
+var lasthour = new Date(ISODate().getTime() - 1000 * 60 * 60);
 
 console.log("ult hora",lasthour);
 
-  LastWeatherSchema.find({timestamp: {$gt:lasthour}},{
+  LastWeatherSchema.find({timestamp: {$gte:lasthour}},{
     _id: 0,
     idhome: 1,
     temp: 1,
