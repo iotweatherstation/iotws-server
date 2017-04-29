@@ -165,7 +165,7 @@ router.get('/:id/:size', function(req, res) {
 router.get('/getAllLastWeatherTest', function(req, res,next) {
 
 var lasthour2 = new Date().setHours(new Date().getHours() - 1);
-var now = new Date().getHours();
+var now = new Date().getTime();
 var lasthour = new Date(new Date().getTime() - 1000 * 60 * 60);
 
 console.log("now",now);
