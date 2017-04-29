@@ -224,6 +224,8 @@ router.get('/:id', function(req, res) {
           }
           console.log(rawout);
           res.send(rawout);
+        } else {
+        	console.log('no trajo registros');
         }
       } else {
         return res.send(500, err.message);
