@@ -162,7 +162,7 @@ router.get('/:id/:size', function(req, res) {
   }).limit(parseInt(req.params.size));
 });
 
-router.get('/getAllLastWeather', function(req, res) {
+router.get('/getAllLastWeather', function(req, res,next) {
 
   var lasthour = new Date().setHours(new Date().getHours() - 1);
 
