@@ -4,10 +4,63 @@ var mongoose = require('mongoose');
 var WeatherSchema = mongoose.model('Weather');
 var LastWeatherSchema = mongoose.model('LastWeather');
 var LocationSchema = mongoose.model('Location');
+var SwitchSchema = mongoose.model('Switch');
 
 module.exports = function(app) {
   app.use('/weather', router);
 };
+
+/* GET: get switch value per idhome -> 0 off, 1 on, -1 error */
+router.get('/getSwitch', function(req, res, next) {
+  SwitchSchema.findOne({
+    idhome: req.query.idhome
+  }, function(err, switchval) {
+    if (!err) {
+      if (switchval) {
+        return res.send(200,switchval.val);
+      } else {
+        return res.send(200, "-1");
+      }
+    } else {
+      return res.send(500, "-1");
+    }
+  });
+});
+
+/* GET: put switch value per idhome: 0 off, 1 on */
+router.get('/putSwitch', function(req, res, next) {
+
+  var newSwitch = new SwitchSchema({
+    idhome: req.query.idhome,
+    val: req.query.val
+  });
+  SwitchSchema.findOne({
+    idhome: req.query.idhome
+  }, function(err, switchval) {
+    if (!err) {
+      if (switchval) {
+        switchval.val = req.query.val;
+        switchval.save(function(err, newloc) {
+          if (!err)
+            return res.status(200).jsonp(newSwitch);
+          else
+            return res.send(500, err.message);
+        });
+      } else {
+        newSwitch.save(function(err, newSwitch) {
+          if (err) {
+            return res.send(500, err.message);
+          } else {
+            return res.status(200).jsonp(newSwitch);
+          }
+        });
+      }
+    } else {
+      return res.send(500, err.message);
+    }
+  });
+  console.log('idhome =', req.query.idhome, ' val =', req.query.val);
+});
 
 /* GET: save my prediction per username */
 router.get('/sendMyPrediction', function(req, res, next) {

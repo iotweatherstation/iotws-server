@@ -62,3 +62,25 @@ Módulo IOT-SERVER
 
       [{"idhome":"emontoya","temp":22.3,"humid":80.3,"timestamp":"2017-03-30T18:03:00.000Z"},
       {"idhome":"emontoya","temp":22.3,"humid":80.3,"timestamp":"2017-03-30T18:03:00.000Z"]
+
+      5. http://server/weather/getSwitch?idhome="username"
+
+      Método: GET
+
+      Descripción: Recupera el valor del switch para el idhome -> "username"
+
+      Datos de entrada: idhome="username"
+
+      Datos de salida: valor "0", "1" ó "-1"
+
+      6. http://server/weather/putSwitch?idhome="username"&val="val"
+
+      Método: GET
+
+      Descripción: Salva el valor del switch para el idhome -> "username" con "val".
+        "val" tendrá valor: "0" ó "1"
+
+      Datos de entrada: idhome="username" y val=["0"|"1"]
+
+      Datos de salida: registro json almacenado en la base de datos. Ej:
+        {"idhome":"emontoya","val":0,"_id":"591fbe7efd652a2d534df328"}
