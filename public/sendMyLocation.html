@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -8,41 +8,55 @@
   <meta charset="utf-8">
   <title>IoT Weather Station - Send my Geolocation</title>
   <script type="text/javascript">
-    function showPosition(){
-      if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(function(position){
+    function sendPosition() {
+      var username = document.getElementById("username").value;
+      var latitude = document.getElementById("latitude").value;
+      var longitude = document.getElementById("longitude").value;
+      if (username != "" && latitude != "" && longitude != "") {
+        $.get('/weather/sendMyLocation?username=' + username + '&latitude=' + latitude + '&longitude=' + longitude);
+        alert("Datos enviados al Servidor");
+        location.reload();
+      } else {
+        alert("Debe tener todos los campos llenos");
+      }
+    }
+
+    function getPosition() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
           var latitude = position.coords.latitude;
           var longitude = position.coords.longitude;
-          var positionInfo = "Su posicion es (" + "Latitude: " + latitude + ", " + "Longitude: " + longitude + ")";
-          document.getElementById("result").innerHTML = positionInfo;
-          var username = document.getElementById("username").value;
-          if(username != ""){
-            $.get('/weather/sendMyLocation?username='+username+'&latitude='+latitude+'&longitude='+longitude)
-          } else{
-		          alert("Debe digital el username de EAFIT como idhome");
-		  }
+          document.getElementById("latitude").value = latitude;
+          document.getElementById("longitude").value = longitude;
         });
-      } else{
+      } else {
         alert("Sorry, your browser does not support HTML5 geolocation.");
       }
     }
   </script>
 </head>
+
 <body>
   <center>
-  <h1>UNIVERSIDAD EAFIT</h1>
+    <h1>UNIVERSIDAD EAFIT</h1>
     <H2>INGENIERIA DE SISTEMAS</h2>
     <H2>ST0260 SEMINARIO DE INGENIERÍA DE SISTEMAS, 20171</h2>
     <H2>PROYECTO FINAL: IoT Weather Station</h2>
-      <h1>GEOLOCALIZACIÓN DE PUNTOS EN LA CIUDAD<H1>
+    <h1>GEOLOCALIZACIÓN DE PUNTOS EN LA CIUDAD<H1>
       </center>
 <div >
   <label>Ingrese su usuario EAFIT como idhome:</label>
-  <input id="username" type="text" name="username" placeholder="Usuario"></input>
+  <input id="username" type="text" name="username" placeholder="username"></input>
+  <p>
+  <label>Latitud: </label>
+  <input id="latitude" type="text" name="latitude"</input>
+  <p>
+  <label>Longitud: </label>
+  <input id="longitude" type="text" name="longitude"</input>
   <p>
 </div>
-
-<button type="button" onclick="showPosition();">Enviar Posicion</button>
+<button type="button" onclick="getPosition();">Get Lat & Long</button>
+<button type="button" onclick="sendPosition();">Send</button>
 <p>
 <label id="result"></label>
 </body>
