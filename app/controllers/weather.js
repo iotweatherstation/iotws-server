@@ -17,7 +17,7 @@ router.get('/getSwitch', function(req, res, next) {
   }, function(err, switchval) {
     if (!err) {
       if (switchval) {
-        return res.send(200,switchval.val);
+        return res.send(200, switchval.val);
       } else {
         return res.send(200, "-1");
       }
@@ -155,12 +155,13 @@ router.get('/saveSensors', function(req, res, next) {
     }
   });
 
-  newWeather.save(function(err, newWeather) {
+  newWeather.save(function(err, sample) {
     if (err) {
       return res.send(500, err.message);
-    }
-    return res.status(200).jsonp(newWeather);
+    } else
+      return res.status(200).jsonp(sample);
   });
+
   console.log('idhome =', req.query.idhome, ' temp =', req.query.temp, ' humid =', req.query.humid, ' timestamp =', req.query.timestamp);
 });
 
@@ -215,16 +216,20 @@ router.get('/:id/:size', function(req, res) {
   }).limit(parseInt(req.params.size));
 });
 
-router.get('/getAllLastWeatherTest', function(req, res,next) {
+router.get('/getAllLastWeatherTest', function(req, res, next) {
 
-var lasthour2 = new Date().setHours(new Date().getHours() - 1);
-var now = new Date().getTime();
-var lasthour = new Date(new Date().getTime() - 1000 * 60 * 60);
+  var lasthour2 = new Date().setHours(new Date().getHours() - 1);
+  var now = new Date().getTime();
+  var lasthour = new Date(new Date().getTime() - 1000 * 60 * 60);
 
-console.log("now",now);
-console.log("lasthour",lasthour);
+  console.log("now", now);
+  console.log("lasthour", lasthour);
 
-  LastWeatherSchema.find({timestamp: {$gte:lasthour}},{
+  LastWeatherSchema.find({
+    timestamp: {
+      $gte: lasthour
+    }
+  }, {
     _id: 0,
     idhome: 1,
     temp: 1,
@@ -243,8 +248,8 @@ console.log("lasthour",lasthour);
         console.log(rawout);
         res.send(rawout);
       } else {
-				console.log('no trajo registros');
-			}
+        console.log('no trajo registros');
+      }
     } else {
       return res.send(500, err.message);
     }
@@ -252,7 +257,7 @@ console.log("lasthour",lasthour);
   });
 });
 
-router.get('/getAllLastWeather', function(req, res,next) {
+router.get('/getAllLastWeather2', function(req, res, next) {
 
   var lasthour = new Date().setHours(new Date().getHours() - 1);
 
@@ -280,12 +285,27 @@ router.get('/getAllLastWeather', function(req, res,next) {
         console.log(rawout);
         res.send(rawout);
       } else {
-				console.log('no trajo registros');
-			}
+        console.log('no trajo registros');
+      }
     } else {
       return res.send(500, err.message);
     }
 
+  });
+});
+
+router.get('/getAllLastWeather', function(req, res, next) {
+
+  LastWeatherSchema.find(function(err, allhomes) {
+
+    if (!err) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      if (allhomes)
+        return res.status(200).jsonp(allhomes);
+    } else {
+      return res.send(500, err.message);
+    }
   });
 });
 
@@ -317,7 +337,7 @@ router.get('/:id', function(req, res) {
           console.log(rawout);
           res.send(rawout);
         } else {
-        	console.log('no trajo registros');
+          console.log('no trajo registros');
         }
       } else {
         return res.send(500, err.message);

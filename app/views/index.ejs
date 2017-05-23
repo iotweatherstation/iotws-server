@@ -1,22 +1,58 @@
 <% include header %>
+  <center>
+    <h1><%-title %></h1>
+    <H2>IoT Weather Station</H2>
+    <H3>Autores: Edwin Montoya M - emontoya@eafit.edu.co / David Velasquez - dvelas25@eafit.edu.co</H3>
+    <H1>SERVICIOS DEFINIDOS EN EL SERVIDOR</H1>
 
-  <h1><%-title %></h1>
-  <p>Proyectos:</p>
+  </center>
   <ul>
-    <li>IoT Weather Station</li>
-    <p>- Autores: Edwin Montoya M - emontoya@eafit.edu.co / David Velasquez - dvelas25@eafit.edu.co</p>
-    <p>- Web Services:</p>
-    <p><a target="_blank" href="https://github.com/iotweatherstation/iotws-server/blob/master/README.md">Documentación</a></p>
+    <li>Github del proyecto - <a target="_blank" href="https://github.com/iotweatherstation">https://github.com/iotweatherstation </a></li>
+    <li>Documentación en - <a target="_blank" href="https://github.com/iotweatherstation/iotws-server/blob/master/README.md">GitHub</a></li>
+    <li>MÓDULO 1: - Se procesan en el Arduino</li>
     <ol>
-    <li>http://server/weather/getTime</li>
-    <li>http://server/weather/saveSensor?idhome="username" & temp="val" & humid="val" & timestamp="date"</li>
-    <li>http://server/weather/"username"</li>
-    <li>http://server/weather/username/"size"</li>
-    <li><a href="https://iotserver1.dis.eafit.edu.co/sendMyLocation.html">https://iotserver1.dis.eafit.edu.co/sendMyLocation.html</a></li>
-    <li>http://server/weather/getSwitch?idhome="username"</li>
-    <li>http://server/weather/putSwitch?idhome="username"&val=[0|1]</li>
+      <li><a href="https://iotserver1.dis.eafit.edu.co/weather/getTime">http://iotserver1.dis.eafit.edu.co/weather/getTime</a></li>
+      <p>Devuelve la fecha actual (día y hora) en formato: AAAA-MM-DDTHH:MM:SS.0Z</p>
+      <li>http://iotserver1.dis.eafit.edu.co/weather/saveSensors?idhome="username" & temp="val" & humid="val" & timestamp="date"</li>
+      <p>Salva en la Base de datos, cada registro de temperatura y humedad</p>
+      <p>ejemplo: <a href="http://iotserver1.dis.eafit.edu.co/weather/saveSensors?idhome=emontoya&temp=22.1&humid=87.2&timestamp=2017-05-23T14:26:14.0Z">
+          http://iotserver1.dis.eafit.edu.co/weather/saveSensors?idhome=emontoya&temp=22.1&humid=87.2&timestamp=2017-05-23T14:26:14.0Z</a></p>
     </ol>
-    <p>-<a target="_blank" href="https://github.com/iotweatherstation"> Github del proyecto </a></p>
-  </ul>
+    <li> MÓDULO 2: Ejemplos en google maps desde el github - Se procesan en la Workstation</li>
+    <ol>
+    <li><a href="https://github.com/iotweatherstation/googlemaps-ejemplos">https://github.com/iotweatherstation/googlemaps-ejemplos</a></li>
+  </ol>
+  <li>http://iotserver1.dis.eafit.edu.co/weather/getAllLastWeather</li>
+  <p>trae la última temperatura y humedad del servidor para todos los dispositivos que están operando</p>
+    <li> MÓDULO 3: Predicción de Temperatura y Humedad futura - Se procesan en la Workstation</li>
+    <ol>
+      <li>Proyecto en Java para la WorkStation: <a href="https://github.com/iotweatherstation/iotws-prediction">https://github.com/iotweatherstation/iotws-prediction</a></li>
+      <li>http://iotserver1.dis.eafit.edu.co/weather/sendMyPrediction?idhome="username" & predtemp="val" & predhumid="val" & timestamp="date"</li>
+      <p>Salva en la Base de datos, la predicción realizada desde la WorkStation de temperatura y humedad para el idhome</p>
+      <p>ejemplo: <a href="http://iotserver1.dis.eafit.edu.co/weather/sendMyPrediction?idhome=emontoya&predtemp=22.1&predhumid=87.2&timestamp=2017-05-23T14:26:14.0Z">
+          http://iotserver1.dis.eafit.edu.co/weather/sendMyPrediction?idhome=emontoya&predtemp=22.1&predhumid=87.2&timestamp=2017-05-23T14:26:14.0Z</a></p>
+    </ol>
+    <li> MÓDULO 4: El prender o apagar el led del Arduino, implica guardar una variable 0 o 1 en el servidor - - Se procesan en el Arduino y la Workstation</li>
+    <ol>
+      <li>http://iotserver1.dis.eafit.edu.co/weather/getSwitch?idhome="username"</li>
+      <p> Consultar el valor del led: 0 apago, 1 prendido, -1 indefinido:</p>
+      <p>ejemplo: <a href="/weather/getSwitch?idhome=emontoya">
+          http://iotserver1.dis.eafit.edu.co/weather/getSwitch?idhome=emontoya</a></p>
+      <li>http://iotserver1.dis.eafit.edu.co/weather/putSwitch?idhome="username"&val=[0|1]</li>
+      <p> Consultar el valor del led: 0 apago, 1 prendido, -1 indefinido:</p>
+      <p>ejemplo: <a href="/weather/putSwitch?idhome=emontoya&val=1">
+          http://iotserver1.dis.eafit.edu.co/weather/getSwitch?idhome=emontoya&val=1</a></p>
+    </ol>
+    <li>SERVICIOS WEB GENERALES:</li>
+    <ol>
+      <li>http://iotserver1.dis.eafit.edu.co/weather/"idhome"</li>
+      <p> Consultar los ultimos valores almacenados por idhome:</p>
 
-<% include footer %>
+      <li>http://iotserver1.dis.eafit.edu.co/weather/username/"size"</li>
+      <p> Consultar los ultimos "size" valores almacenados por idhome:</p>
+
+      <li><a href="https://iotserver1.dis.eafit.edu.co/sendMyLocation.html">https://iotserver1.dis.eafit.edu.co/sendMyLocation.html</a></li>
+      <P> georreferencia la ubicación del dispositivo sensor</P>
+    </ol>
+  </ul>
+  <% include footer %>
