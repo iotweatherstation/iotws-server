@@ -133,13 +133,13 @@ router.get('/getAllLocations', function(req, res, next) {
 router.get('/sendMyLocation', function(req, res, next) {
 
   var newLocation = new LocationSchema({
-    idhome: req.query.username,
+    idhome: req.query.idhome,
     latitude: req.query.latitude,
     longitude: req.query.longitude
   });
 
   LocationSchema.findOne({
-    idhome: req.query.username
+    idhome: req.query.idhome
   }, function(err, location) {
     if (!err) {
       if (location) {
@@ -167,7 +167,7 @@ router.get('/sendMyLocation', function(req, res, next) {
       return res.send(500, err.message);
     }
   });
-  console.log('idhome =', req.query.username, ' latitude =', req.query.latitude, 'longitude =', req.query.longitude);
+  console.log('idhome =', req.query.idhome, ' latitude =', req.query.latitude, 'longitude =', req.query.longitude);
 });
 
 /* GET: save sensors. */
