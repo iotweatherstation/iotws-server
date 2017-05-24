@@ -14,7 +14,7 @@ Módulo IOT-SERVER
 
     Método: GET
 
-    Descripción: Salva en la Base de datos, cada registro de temperatura & humidad.
+    Descripción: Salva en la Base de datos, cada registro de temperatura & humedad.
 
     Datos de entrada:
 
