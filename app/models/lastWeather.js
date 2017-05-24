@@ -5,6 +5,8 @@ var mongoose = require('mongoose'),
 
 var LastWeatherSchema = new Schema({
   idhome: String,
+  latitude: Number,
+  longitude: Number,
   temp: Number,
   humid: Number,
   timestamp: Date
