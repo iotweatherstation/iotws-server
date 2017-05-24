@@ -80,6 +80,24 @@ router.get('/sendMyPrediction', function(req, res, next) {
   });
 });
 
+/* GET: get location. */
+
+router.get('/getMyLocation', function(req, res, next) {
+
+  LocationSchema.findOne({idhome: req.query.idhome}, {_id:0,idhome:1,latitude:1,longitude:1},function(err, location) {
+    if (!err) {
+      if (location) {
+        console.log('/getMyLocation?idhome =', location.idhome, ' latitude =', location.latitude, 'longitude =', location.longitude);
+        return res.status(200).jsonp(location);
+      } else {
+        console.log('/getMyLocation?idhome =', req.query.idhome, ' Not found');
+        return res.send('idhome_not_found');
+      }
+    }else {
+      return res.send(500, err.message);
+    }
+  });
+});
 
 /* GET: save location. */
 

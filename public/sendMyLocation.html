@@ -9,11 +9,11 @@
   <title>IoT Weather Station - Send my Geolocation</title>
   <script type="text/javascript">
     function sendPosition() {
-      var username = document.getElementById("username").value;
+      var idhome = document.getElementById("idhome").value;
       var latitude = document.getElementById("latitude").value;
       var longitude = document.getElementById("longitude").value;
-      if (username != "" && latitude != "" && longitude != "") {
-        $.get('http://iotserver1.dis.eafit.edu.co/weather/sendMyLocation?username=' + username + '&latitude=' + latitude + '&longitude=' + longitude);
+      if (idhome != "" && latitude != "" && longitude != "") {
+        $.get('http://iotserver1.dis.eafit.edu.co/weather/sendMyLocation?idhome=' + idhome + '&latitude=' + latitude + '&longitude=' + longitude);
         alert("Datos enviados al Servidor");
         location.reload();
       } else {
@@ -46,7 +46,7 @@
       </center>
 <div >
   <label>Ingrese su usuario EAFIT como idhome:</label>
-  <input id="username" type="text" name="username" placeholder="username"></input>
+  <input id="idhome" type="text" name="idhome" placeholder="username"></input>
   <p>
   <label>Latitud: </label>
   <input id="latitude" type="text" name="latitude"</input>

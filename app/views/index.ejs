@@ -57,6 +57,14 @@
 
       <li><a href="https://iotserver1.dis.eafit.edu.co/sendMyLocation.html">https://iotserver1.dis.eafit.edu.co/sendMyLocation.html</a></li>
       <P> georreferencia la ubicación del dispositivo sensor</P>
+
+      <li>http://iotserver1.dis.eafit.edu.co/weather/savedMyLocation?idhome="username"&latitude="val"&longitude="val"</li>
+      <P>Servicio Web para guardar la posición GPS del idhome</P>
+
+      <li>http://iotserver1.dis.eafit.edu.co/weather/getMyLocation?idhome="username"</li>
+      <P>Servicio Web para traer la posición GPS del idhome</P>
+      <P>ejemplo: <a href="/weather/getMyLocation?idhome=emontoya">http://iotserver1.dis.eafit.edu.co/weather/getMyLocation?idhome=emontoya</a></p>
+
     </ol>
   </ul>
   <% include footer %>
