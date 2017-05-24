@@ -13,7 +13,7 @@
       var latitude = document.getElementById("latitude").value;
       var longitude = document.getElementById("longitude").value;
       if (idhome != "" && latitude != "" && longitude != "") {
-        $.get('http://iotserver1.dis.eafit.edu.co/weather/sendMyLocation?idhome=' + idhome + '&latitude=' + latitude + '&longitude=' + longitude);
+        $.get('/weather/sendMyLocation?idhome=' + idhome + '&latitude=' + latitude + '&longitude=' + longitude);
         alert("Datos enviados al Servidor");
         location.reload();
       } else {
