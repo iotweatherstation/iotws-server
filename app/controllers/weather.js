@@ -99,6 +99,23 @@ router.get('/getMyLocation', function(req, res, next) {
   });
 });
 
+/* GET: get all locations. */
+
+router.get('/getAllLocations', function(req, res, next) {
+
+  LocationSchema.find({}, {_id:0,idhome:1,latitude:1,longitude:1},function(err, location) {
+    if (!err) {
+      if (location) {
+        return res.status(200).jsonp(location);
+      } else {
+        return res.send('error');
+      }
+    }else {
+      return res.send(500, err.message);
+    }
+  });
+});
+
 /* GET: save location. */
 
 router.get('/sendMyLocation', function(req, res, next) {
