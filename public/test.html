@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <title>IoT Weather Station - Visualizacion</title>
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html,body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="info">
+    <h1>IoT Weather Station - Visualizacion de datos<h1>
+    <h2>Por: "nombre", "email" </h2>
+  </div>
+  <div id="map"></div>
+  <script>
+  function initMap() {
+    <!-- centro del mapa -->
+    var centroMapa = new google.maps.LatLng(6.1976,-75.5750);
+
+    <!-- opciones del mapa -->
+    var misOpciones = {
+      zoom: 13,
+      center: centroMapa
+    };
+
+    <!-- colocar el mapa en la página en el div=mapa -->
+    var mimapa = new google.maps.Map(document.getElementById("map"),misOpciones);
+
+    /* El servicio /weather/getAllLastWeather trae todos los idhome con sus respectivos:
+    latitude, longitude, temp, humid
+
+    ej:
+
+    [{"idhome":"edwinm67","latitude":6.1981541,"longitude":-75.57945219999999,"temp":23.1,"humid":87.2,"timestamp":"2017-05-24T16:20:39.000Z"},
+    {"idhome":"emontoya","latitude":6.1791317999999995,"longitude":-75.57309959999999,"temp":22.1,"humid":87.2,"timestamp":"2017-05-24T16:20:39.000Z"}]
+
+    ej: marcadores[i].idhome
+
+    */
+
+    $.get('/weather/getAllLastWeather', function (marcadores){
+      <!-- RECORRER TODO EL ARREGLO DE MARCADORES Y PINTARLOS EN EL MAPA -->
+      var i;
+      for (i = 0; i < marcadores.length; i++) {
+        var pos = new google.maps.LatLng(marcadores[i].latitude, marcadores[i].longitude);
+        var marcador = new google.maps.Marker({
+          position: pos,
+          map: mimapa,
+          title: marcadores[i].idhome+ ',' +marcadores[i].temp+ ',' +marcadores[i].humid
+        });
+      }
+    });
+  }
+  </script>
+  <!-- actualizar en YOUR_API_KEY la clave propia generada
+    API_KEY = AIzaSyAaMAY9VlVPbr5yPqofvzPVLr4TWUDdZyY -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaMAY9VlVPbr5yPqofvzPVLr4TWUDdZyY&callback=initMap"
+async defer></script>
+</body>
+</html>
