@@ -44,14 +44,14 @@
 
     ej:
 
-    [{"idhome":"edwinm67","latitude":6.1981541,"longitude":-75.57945219999999,"temp":23.1,"humid":87.2,"timestamp":"2017-05-24T16:20:39.000Z"},
-    {"idhome":"emontoya","latitude":6.1791317999999995,"longitude":-75.57309959999999,"temp":22.1,"humid":87.2,"timestamp":"2017-05-24T16:20:39.000Z"}]
+    [{"latitude":6.1981541,"longitude":-75.57945219999999,"temp":23.1,"humid":87.2,"timestamp":"2017-05-24T16:20:39.000Z"},
+    {"latitude":6.1791317999999995,"longitude":-75.57309959999999,"temp":22.1,"humid":87.2,"timestamp":"2017-05-24T16:20:39.000Z"}]
 
     ej: marcadores[i].idhome
 
     */
 
-    $.get('/weather/getAllLastWeather', function (marcadores){
+    $.get('http://iotserver1.dis.eafit.edu.co/weather/getAllLastWeather', function (marcadores){
       <!-- RECORRER TODO EL ARREGLO DE MARCADORES Y PINTARLOS EN EL MAPA -->
       var i;
       for (i = 0; i < marcadores.length; i++) {
@@ -59,7 +59,7 @@
         var marcador = new google.maps.Marker({
           position: pos,
           map: mimapa,
-          title: marcadores[i].idhome+ ',' +marcadores[i].temp+ ',' +marcadores[i].humid
+          title: marcadores[i].temp+ ',' +marcadores[i].humid
         });
       }
     });
