@@ -366,7 +366,7 @@ router.get('/getAllLastWeather2', function(req, res, next) {
 });
 
 router.get('/getAllLastWeather', function(req, res, next) {
-  LastWeatherSchema.find({},{_id:0,idhome:0,latitude:1,longitude:1,temp:1,humid:1,timestamp:1},function(err, allhomes) {
+  LastWeatherSchema.find({},{latitude:1,longitude:1,temp:1,humid:1,timestamp:1},function(err, allhomes) {
     if (!err) {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
