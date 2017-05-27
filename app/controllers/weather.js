@@ -293,7 +293,7 @@ router.get('/:id/:size', function(req, res) {
 });
 
 router.get('/getMyPrediction', function(req, res) {
-  PredictionSchema.find({idhome: req.query.idhome}, {_id: 0,idhome: 1,temp: 1,humid: 1,timestamp: 1}, function(err, pred) {
+  PredictionSchema.find({idhome: req.query.idhome}, {_id: 0,idhome: 1,predtemp: 1,predhumid: 1,timestamp: 1}, function(err, pred) {
     if (!err) {
       if (pred) {
         res.header("Access-Control-Allow-Origin", "*");
