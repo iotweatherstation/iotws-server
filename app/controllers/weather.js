@@ -5,6 +5,7 @@ var WeatherSchema = mongoose.model('Weather');
 var LastWeatherSchema = mongoose.model('LastWeather');
 var LocationSchema = mongoose.model('Location');
 var SwitchSchema = mongoose.model('Switch');
+var PredictionSchema = mongoose.model('Prediction');
 
 module.exports = function(app) {
   app.use('/weather', router);
