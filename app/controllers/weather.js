@@ -77,7 +77,7 @@ router.get('/sendMyPrediction', function(req, res, next) {
       return res.send(500, err.message);
     }
     // send OK
-    return res.status(200).jsonp(newWeather);
+    return res.status(200).jsonp(newPrediction);
   });
 });
 
