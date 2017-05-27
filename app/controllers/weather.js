@@ -66,7 +66,7 @@ router.get('/putSwitch', function(req, res, next) {
 /* GET: save my prediction per username */
 router.get('/sendMyPrediction', function(req, res, next) {
   var newPrediction = new PredictionSchema({
-    idhome: req.query.username,
+    idhome: req.query.idhome,
     predtemp: req.query.predtemp,
     predhumid: req.query.predhumid,
     timestamp: req.query.timestamp,
