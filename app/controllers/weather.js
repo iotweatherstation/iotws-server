@@ -183,49 +183,53 @@ router.get('/saveSensors', function(req, res, next) {
 
   var newLastWeather = new LastWeatherSchema({
     idhome: req.query.idhome,
-    latitude:'',
-    longitude:'',
+    latitude: '',
+    longitude: '',
     temp: req.query.temp,
     humid: req.query.humid,
     timestamp: req.query.timestamp
   });
 
-  LastWeatherSchema.findOne({idhome: req.query.idhome},
+  LastWeatherSchema.findOne({
+      idhome: req.query.idhome
+    },
     function(err, lastweather) {
-    if (!err) {
-      if (lastweather) {
-        lastweather.temp = req.query.temp;
-        lastweather.humid = req.query.humid;
-        lastweather.timestamp = req.query.timestamp;
-        LocationSchema.findOne({idhome: req.query.idhome},
-          function(err, loc) {
-          if (!err) {
-            if (loc) {
-              lastweather.latitude = loc.latitude;
-              lastweather.longitude = loc.longitude;
-              lastweather.save();
-            } else {
-              lastweather.save();
+      if (!err) {
+        if (lastweather) {
+          lastweather.temp = req.query.temp;
+          lastweather.humid = req.query.humid;
+          lastweather.timestamp = req.query.timestamp;
+          LocationSchema.findOne({
+              idhome: req.query.idhome
+            },
+            function(err, loc) {
+              if (!err) {
+                if (loc) {
+                  lastweather.latitude = loc.latitude;
+                  lastweather.longitude = loc.longitude;
+                  lastweather.save();
+                } else {
+                  lastweather.save();
+                }
+              }
+            });
+        } else {
+          LocationSchema.findOne({
+            idhome: req.query.idhome
+          }, function(err, loc) {
+            if (!err) {
+              if (loc) {
+                newLastWeather.latitude = loc.latitude;
+                newLastWeather.longitude = loc.longitude;
+                newLastWeather.save();
+              } else {
+                newLastWeather.save();
+              }
             }
-          }
-        });
-      } else {
-        LocationSchema.findOne({
-          idhome: req.query.idhome
-        }, function(err, loc) {
-          if (!err) {
-            if (loc) {
-              newLastWeather.latitude = loc.latitude;
-              newLastWeather.longitude = loc.longitude;
-              newLastWeather.save();
-            } else {
-              newLastWeather.save();
-            }
-          }
-        });
+          });
+        }
       }
-    }
-  });
+    });
 
   newWeather.save(function(err, sample) {
     if (err) {
@@ -286,6 +290,25 @@ router.get('/:id/:size', function(req, res) {
   }).sort({
     timestamp: -1
   }).limit(parseInt(req.params.size));
+});
+
+router.get('/getMyPrediction', function(req, res) {
+  console.log(req.query.idhome);
+  PredictionSchema.find({idhome: req.query.idhome}, {_id: 0,idhome: 1,temp: 1,humid: 1,timestamp: 1}, function(err, pred) {
+    if (!err) {
+      console.log(pred);
+      if (pred) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.send(pred);
+      } else {
+        res.send("no found");
+      }
+
+    } else {
+      return res.send(500, err.message);
+    }
+  }).sort({timestamp:-1}).limit(1);
 });
 
 router.get('/getAllLastWeatherTest', function(req, res, next) {
@@ -367,7 +390,14 @@ router.get('/getAllLastWeather2', function(req, res, next) {
 });
 
 router.get('/getAllLastWeather', function(req, res, next) {
-  LastWeatherSchema.find({},{_id:0,latitude:1,longitude:1,temp:1,humid:1,timestamp:1},function(err, allhomes) {
+  LastWeatherSchema.find({}, {
+    _id: 0,
+    latitude: 1,
+    longitude: 1,
+    temp: 1,
+    humid: 1,
+    timestamp: 1
+  }, function(err, allhomes) {
     if (!err) {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
