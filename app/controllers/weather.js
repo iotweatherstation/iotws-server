@@ -293,16 +293,14 @@ router.get('/:id/:size', function(req, res) {
 });
 
 router.get('/getMyPrediction', function(req, res) {
-  console.log(req.query.idhome);
   PredictionSchema.find({idhome: req.query.idhome}, {_id: 0,idhome: 1,temp: 1,humid: 1,timestamp: 1}, function(err, pred) {
     if (!err) {
-      console.log(pred);
       if (pred) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         res.send(pred);
       } else {
-        res.send("no found");
+        res.send("not_found");
       }
 
     } else {
