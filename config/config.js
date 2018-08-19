@@ -8,8 +8,8 @@ var config = {
     app: {
       name: 'iotws-server'
     },
-    port: process.env.PORT || 3001,
-    db: 'mongodb://localhost/iotws-server-development'
+    port: process.env.PORT || 3000,
+    db: 'mongodb://mongo-server-iot/iotws-server-development'
   },
 
   test: {
@@ -17,8 +17,8 @@ var config = {
     app: {
       name: 'iotws-server'
     },
-    port: process.env.PORT || 3002,
-    db: 'mongodb://localhost/iotws-server-test'
+    port: process.env.PORT || 3000,
+    db: 'mongodb://mongo-server-iot/iotws-server-test'
   },
 
   production: {
@@ -26,8 +26,8 @@ var config = {
     app: {
       name: 'iotws-server'
     },
-    port: process.env.PORT || 3123,
-    db: 'mongodb://localhost/iotws-server-production'
+    port: process.env.PORT || 3000,
+    db: 'mongodb://mongo-server-iot/iotws-server-production'
   }
 };
 
