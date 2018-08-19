@@ -7,8 +7,8 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./ssl:/etc/nginx/ssl:ro
     ports:
-      - "80:80"
-      - "443:443"
+      - "81:80"
+      - "444:443"
     depends_on:
       - nodeapp-iot
   nodeapp-iot:
@@ -16,7 +16,7 @@ services:
     restart: always
     build: .
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - mongo-server-iot      
   mongo-server-iot:
@@ -25,5 +25,5 @@ services:
     volumes:
       - ./data:/data/db
     ports:
-      - "27017:27017"
+      - "27018:27017"
 
